@@ -34,5 +34,5 @@ export function createShip(className) {
         shipHits >= shipLength && (shipSunk = true);
     }
 
-    return { getStatus, hit }
+    return { getStatus, hit, type: 'ship' }
 }

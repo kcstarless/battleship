@@ -2,7 +2,6 @@ import { createShip } from '../ship';
 
 describe('Ship object', () => {
     const carrier = createShip('carrier');
-    const battleship = createShip('battleship');
 
     it('Current status of the ship', () => {
         expect(carrier.getStatus()).toEqual({
