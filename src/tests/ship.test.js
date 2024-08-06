@@ -1,4 +1,4 @@
-import { createShip } from '../ship';
+import { createShip } from '../modules/ship';
 
 describe('Ship object', () => {
     const carrier = createShip('carrier');

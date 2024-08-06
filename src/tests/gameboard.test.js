@@ -1,6 +1,6 @@
 import { iteratee } from 'lodash';
-import { createGameboard } from '../gameboard';
-import { createShip } from '../ship';
+import { createGameboard } from '../modules/gameboard';
+import { createShip } from '../modules/ship';
 
 describe('Gameboard', () => {
     const xAxis = 10;

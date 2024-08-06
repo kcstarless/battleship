@@ -1,10 +1,9 @@
 .container {
     border: var(--border-dark);
-
     position: relative;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: 0.1fr auto 0.1fr;
     grid-template-areas:
       "header"
       "content"

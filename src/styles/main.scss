@@ -4,6 +4,15 @@
 // Google fonts
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 
+// Fonts
+@font-face {
+    font-family: 'Rust';
+    src: url('./fonts/rust.woff') format('woff'),
+        url('./fonts/rust.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 // Configuration
 @import "config/variables";
 @import "config/reset";
@@ -16,3 +25,4 @@
 @import "layouts/sidebar";
 
 // Components
+@import "components/board";

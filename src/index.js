@@ -1,11 +1,15 @@
-import _ from 'lodash';
+// index.js
+
 import './styles/main.scss';
+import { createPlayer } from './modules/player';
+import { gameModule } from './modules/game';
 
-// function component() {
-//     const element = document.createElement('h1');
-//     element.innerHTML = "My Tempalte: Webpack, scss"
-//     return element;
-// }
+function init() {
+    let human = createPlayer('human');
+    let computer = createPlayer('computer');
+    let players = [human, computer];
+    // let currentPlayerIndex = 0;
+    gameModule.init(players);
+}
 
-// const header = document.querySelector('header');
-// header.append(component());
+init();
