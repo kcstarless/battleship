@@ -1,6 +1,6 @@
 // gameModule.js
 
-import { playerBoard, opponentBoard } from './renderBoard';
+import { playerBoard, opponentBoard } from './domLoader.js';
 import { feedback } from "./feedbackHelper.js";
 import { createPlayer } from '../modules/player';
 import missileRight from '../assets/images/missile_right.png';
@@ -59,19 +59,21 @@ export const gameModule = (function () {
         round(); // new round
     }
 
+    function checkLastShot() {
+        return players[getNextPlayerIndex()].getBoard().getBoardStatus().hit
+    }
+
     function gameOver() {
         if (defender.getBoard().checkFleet()) {
             isGameOver = true;
             feedback.middle(`Gameover: ${attacker.playerType} WINS!`);
+        } else if (checkLastShot()) {   
+            feedback.bottom("Fire again!");
+            round(); // If hit play another round without switching player.
         } else {
-            if(players[getNextPlayerIndex()].getBoard().getBoardStatus().hit === true) {
-                feedback.bottom("Fire again!");
-                round();
-            } else {
-                switchPlayer();
-            }
-
+            switchPlayer();
         }
+        
     }
     return { init, gameOver, getIsGameOver };
 })();

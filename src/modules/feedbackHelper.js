@@ -34,6 +34,8 @@ export const feedback = (function() {
     function bottom(m){
         const feedback = domSelector('.bottom');
         feedback.textContent = m;
+        feedback.classList.remove('fade-out');
+        setTimeout(() => feedback.classList.add('fade-out'), 10); 
     }
 
     return { top, middle, bottom };

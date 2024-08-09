@@ -75,7 +75,7 @@ export function createGameboard(type) {
     // Determines if an attack with coordinate hit a ship.
     function receiveAttack(y, x) {
         if (shots.has(`${y},${x}`)) {
-            feedback.bottom('Check your co-ord.')
+            feedback.bottom('Check your coord.')
             return false
         }
 
@@ -98,7 +98,7 @@ export function createGameboard(type) {
     function checkShip(cell){
         const ship = cell.getStatus();
         if (ship.sunk) {
-            feedback.middle(`${ship.name} sunk!`);
+            feedback.bottom(`${ship.name} sunk!`);
         }
     }
 

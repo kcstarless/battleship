@@ -1,28 +1,11 @@
 // renderBoard.js
-import { domCreator,domSelector } from './domHelper';
 import { xAxis, yAxis } from './gameboard';
+import { domCreator } from './domHelper';
 import { gameModule } from './gameModule';
-
-export function playerBoard(player){
-    const divPlayerBoard = domSelector('#p1-board');
-    const divFleet = domSelector('#p1-fleet');
-    const board = player.getBoard().getBoardStatus().board;
-    
-    displayBoard(divPlayerBoard, board, player);
-    displayFleet(player, divFleet);
-}
-
-export function opponentBoard(player) {
-    const divOpponentBoard = domSelector('#p2-board');
-    const divFleet = domSelector('#p2-fleet');
-    const board = player.getBoard().getBoardStatus().board;
-
-    displayBoard(divOpponentBoard, board, player);
-    displayFleet(player, divFleet);
-}
+import { opponentBoard } from './domLoader';
 
 // Render board 
-function displayBoard(divBoard, board, player) {
+export function displayBoard(divBoard, board, player) {
     divBoard.innerHTML = '';
 
     for (let y = 0; y < yAxis; y++) {
@@ -49,52 +32,6 @@ function createCell(player, coord, cellType) {
         cell.addEventListener('click', () => handleCellClick(player, coord));   
     }
     return cell;
-}
-
-//Render fleet
-export function displayFleet(player, divFleet) {
-    const fleet = player.getBoard().getBoardStatus().fleet;
-    divFleet.innerHTML = '';
-    const divFleetLegend = domCreator('legend');
-    
-    divFleetLegend.textContent = 'My Fleet';
-    divFleet.append(divFleetLegend);
-
-    fleet.forEach(ship => {       
-        const divShip = domCreator('div');
-        const divTitle = domCreator('div');
-
-        divTitle.className = "title";
-        divShip.className = "ship";
-        divTitle.innerHTML = `<h5>${ship.getStatus().name}</h5>`;
-        divFleet.append(divTitle);
-        const cells = createShipsCells(ship, player);
-        cells.forEach(cell => divShip.appendChild(cell));
-        divFleet.append(divShip);
-    });
-}
-
-// Create ship cells for fleet display
-function createShipsCells(ship, player) {
-    const shipLength = ship.getStatus().length;
-    let shipHits = ship.getStatus().hits;
-    const shipSunk = ship.getStatus().sunk;
-
-    const cells = [];
-    for (let i = 0; i < shipLength; i++) {
-        const cell = domCreator('div');
-        cell.className = 'board-cell';
-        cell.classList.add('ship'); // Ensure it matches the ship class used on the board
-        if (shipHits > 0 && player.playerType !== 'computer' ) { // if ships has hits add hit class
-            cell.classList.add('hit');
-            shipHits = Math.max(0, shipHits - 1); // ensure shipHits doesn't go below 0
-        }
-        if (shipSunk) {
-            cell.classList.add('hit');      
-        }
-        cells.push(cell);
-    }
-    return cells;
 }
 
 // Loads image file for shots thats hit and miss
