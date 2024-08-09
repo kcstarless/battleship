@@ -7,3 +7,4 @@ export function domSelector(name) {
 export function domCreator(name){
     return document.createElement(name);
 }
+

@@ -1,20 +1,22 @@
 // gameboard.js
 
 import { createShip } from "./ship";
+import { feedback } from "./feedbackHelper.js";
+import hit from '../assets/images/hit.png';
+import miss from '../assets/images/miss.png';
+
 
 // Global board size;
 export const xAxis = 10; 
 export const yAxis = 10;
 
-export function createGameboard() {
-    // Declare board size & board
-
+export function createGameboard(type) {
 
     // Players board, ships and attack records. 
     let board = Array.from({ length: yAxis }, () => Array(xAxis).fill(null));
     let playerFleet = [];
-    let missedAttacks = [];
-    let landedAttacks = [];
+    let shots =  new Map();
+    let hasHit = false;
 
     // Create ships
     const carrier = createShip('carrier');
@@ -24,19 +26,27 @@ export function createGameboard() {
     const patrolboat = createShip('patrolboat');
 
     // Places each ships
-    placeShip(0, 0, carrier, 'horizontal');
-    placeShip(1, 0, battleship, 'horizontal');
-    placeShip(2, 0, destroyer, 'horizontal');
-    placeShip(3, 0, submarine, 'horizontal');
-    placeShip(4, 0, patrolboat, 'horizontal');
+    if (type == 'human'){
+        placeShip(0, 0, carrier, 'horizontal');
+        placeShip(1, 0, battleship, 'horizontal');
+        placeShip(2, 0, destroyer, 'horizontal');
+        placeShip(3, 0, submarine, 'horizontal');
+        placeShip(4, 0, patrolboat, 'horizontal');
+    } else {
+        placeShip(9, 0, carrier, 'horizontal');
+        placeShip(8, 0, battleship, 'horizontal');
+        placeShip(7, 0, destroyer, 'horizontal');
+        placeShip(6, 0, submarine, 'horizontal');
+        placeShip(5, 0, patrolboat, 'horizontal');
+    }
 
     // Display board
     function getBoardStatus() {
         return {
             board: board,
             fleet: playerFleet,
-            missed: missedAttacks,
-            landed: landedAttacks
+            shots: shots,
+            hit: hasHit
         }
     }
 
@@ -64,17 +74,31 @@ export function createGameboard() {
 
     // Determines if an attack with coordinate hit a ship.
     function receiveAttack(y, x) {
-        const cell = board[y][x];
+        if (shots.has(`${y},${x}`)) {
+            feedback.bottom('Check your co-ord.')
+            return false
+        }
 
-        if (cell && cell.type === 'ship') {
+        const cell = board[y][x];
+        if (cell?.type === 'ship') {
+            hasHit = true;
             cell.hit();
-            landedAttacks.push([y, x]); // if hit keep record 
-            checkFleet();
-            return 'HIT'
+            shots.set(`${y},${x}`, hit); // if hit keep record with img
+            feedback.middle(`HIT!`);
+            checkShip(cell);
         } else {
-            missedAttacks.push([y, x]); // if miss keep record
-            // board[y][x] = 'miss';
-            return 'MISS'
+            hasHit = false;
+            shots.set(`${y},${x}`, miss); // if miss keep record
+            feedback.middle(`MISSED!`);
+        }
+        return true;
+    }
+
+    // Check ship status that was hit
+    function checkShip(cell){
+        const ship = cell.getStatus();
+        if (ship.sunk) {
+            feedback.middle(`${ship.name} sunk!`);
         }
     }
 
@@ -83,9 +107,7 @@ export function createGameboard() {
         return (playerFleet.every(ship => ship.getStatus().sunk)); // return true if all sunk
     }
 
-
     /** Valid ship placement on the board **/
-
     // Return true if both conditions are true else false
     function validPositions(y, x, len, orientation) {
         return (validCellLength(y, x, len, orientation) && validEdge(y, x));
@@ -117,5 +139,5 @@ export function createGameboard() {
         board[y][x] === null && true
     }
 
-    return { board, missedAttacks, landedAttacks, getBoardStatus, placeShip, receiveAttack, checkFleet }
+    return { getBoardStatus, placeShip, receiveAttack, checkFleet }
 }

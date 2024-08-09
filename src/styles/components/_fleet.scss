@@ -1,0 +1,76 @@
+// _fleet.scss
+.fleet {
+    color: var(--color-primary);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: var(--space-l);
+
+    .p1-fleet, .p2-fleet {
+        flex: 1;
+        margin-top: var(--space-m);
+        // padding: var(--space-s);
+        border-bottom: none;
+        border-radius: 50%;
+        border-width: 4px;
+    }
+    
+
+    .p1-fleet {
+        border-right: none;
+        border-color: var(--color-secondary);
+        legend {
+            font-family: 'Rust';
+            color: var(--color-primary);
+        }
+        .title {
+            padding-top: var(--space-xs);
+            h5 {
+                color: var(--color-white);
+            }
+        }
+        .ship{
+            display: flex;
+            gap: 1px;
+        }
+        .board-cell {
+            width: 20px; /* Adjust size as needed */
+            height: 20px;
+            background-color: grey; /* Default color for ship */
+        }
+        .board-cell.hit {
+            background-color: red; /* Color for hit */
+        }
+    }
+
+    .p2-fleet {
+        border-left: none;
+        border-color: var(--color-secondary-rotate);
+        legend {
+            font-family: 'Rust';
+            color: var(--color-primary);
+            text-align: right; /* Align text to the right */
+        }
+        .title {
+            padding-top: var(--space-xs);
+            display: flex;
+            justify-content: end;
+            h5 {
+                color: var(--color-white);
+            }
+        }
+        .ship{
+            display: flex;
+            gap: 1px;
+            justify-content: flex-end;
+        }
+        .board-cell {
+            width: 20px; /* Adjust size as needed */
+            height: 20px;
+            background-color: grey; /* Default color for ship */
+        }
+        .board-cell.hit {
+            background-color: red; /* Color for hit */
+        }
+    }
+}
