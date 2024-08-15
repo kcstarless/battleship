@@ -23,6 +23,9 @@
     grid-template-columns: repeat(10, 35px); // Adjust the size based on your needs
     grid-template-rows: repeat(10, 35px);
     gap: 1px;
+    .board-cell {
+        transition: background-color 0.3s ease; 
+    }
     
     .board-cell.water {
         background-color: var(--color-primary-rotate); // Different color for 'water'
@@ -30,6 +33,13 @@
     
     .board-cell.ship {
         background-color: var(--color-background); // Different color for ship
+    }
+    .board-cell.highlight-valid {
+        background-color: green;
+    }
+    
+    .board-cell.highlight-invalid {
+        background-color: red;
     }
 }
 .p2-board {
@@ -40,13 +50,12 @@
     gap: 1px; // Space between cells (optional)
 
     .board-cell.water {
-        background-color: var(--color-primary-rotate);
+        background-color: var(--color-secondary-rotate);
         // background-color: rgb(23, 103, 223); // Different color for 'water'
     }
     
     .board-cell.ship {
-        background-color: var(--color-primary-rotate);
+        background-color: var(--color-background);
         // background-color: rgb(23, 103, 223);// Different color for ship
     }
 }
-

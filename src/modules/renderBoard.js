@@ -1,8 +1,9 @@
 // renderBoard.js
 import { xAxis, yAxis } from './gameboard';
-import { domCreator } from './domHelper';
+import { domCreator, domCreateCell } from './domHelper';
 import { gameModule } from './gameModule';
 import { opponentBoard } from './domLoader';
+import { dragndropEvent } from './dragndropHandler';
 
 // Render board 
 export function displayBoard(divBoard, board, player) {
@@ -20,22 +21,22 @@ export function displayBoard(divBoard, board, player) {
 
 // Return each cell to display board
 function createCell(player, coord, cellType) { 
-    const cell = domCreator('div');
-    cell.className = 'board-cell';
-    cell.id = 'board-cell';
-    cell.dataset.position = coord;
-    const img = checkHitsAndMisses(player, coord);
-    cell.classList.add(cellType ? 'ship' : 'water'); // Add ship or water class depending on the cell content
+    const { cell } = domCreateCell(player, coord, cellType); // See domHelper
+    
+    const img = hitOrMiss(player, coord);
     cell.append(img);
-    // Adds click event on opponents board if player is computer, is attacking and game not over.
+    
+    !gameModule.getIsInitialized() && dragndropEvent(player, coord, cell); // drag and drop events for initial placement of ships only
+
+    // Adds event on opponents board if player is computer, is attacking and game not over.
     if (player.playerType === 'computer' && !player.isAttacking && !gameModule.getIsGameOver()) {
-        cell.addEventListener('click', () => handleCellClick(player, coord));   
+        cell.addEventListener('click', () => handleCellAttack(player, coord));   
     }
     return cell;
 }
 
-// Loads image file for shots thats hit and miss
-function checkHitsAndMisses(player, coord){
+// If cell has been hit or miss return img else empty
+function hitOrMiss(player, coord){
     const shotsFired = player.getBoard().getBoardStatus().shots.has(coord);
     if (shotsFired) {
         const img = domCreator('img');
@@ -45,10 +46,31 @@ function checkHitsAndMisses(player, coord){
     return '';
 }
 
-function handleCellClick(player, coord) {
+// Handles click when user attacks a cell
+async function handleCellAttack(player, coord) {
     const [y, x] = coord.split(',').map(Number);
     if (player.getBoard().receiveAttack(y, x)) { // if attack is sucessful
-        gameModule.gameOver();
         opponentBoard(player); // updates board and ensure to remove click event if isGameOver
+        gameModule.gameOver();
     }
+}
+
+// Update board display after placing a ship
+export function updateBoardDisplay(player) {
+    const divBoard = document.querySelector('#p1');
+    displayBoard(divBoard, player.getBoard().getBoardStatus().board, player);
+}
+
+export function clearBoard() {
+    const playerBoard = document.querySelector('.p1-board');
+    const playerFleet = document.querySelector('.p1-fleet');
+    const opponentBoard = document.querySelector('.p2-board');
+    const opponentFleet = document.querySelector('.p2-fleet');
+    const gameInfo = document.querySelector('.top');
+    
+    playerBoard.textContent = '';
+    opponentBoard.textContent ='';
+    playerFleet.textContent = '';
+    opponentFleet.textContent ='';
+    gameInfo.textContent = '';
 }

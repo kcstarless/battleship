@@ -38,6 +38,12 @@ export const feedback = (function() {
         setTimeout(() => feedback.classList.add('fade-out'), 10); 
     }
 
-    return { top, middle, bottom };
+    function direction(m) {
+        const feedback = domSelector('.direction');
+        m = m === 'horizontal' ? `<h3>EAST -> WEST</h3>` : `<h3>NORTH -> SOUTH</h3>`;
+        feedback.innerHTML = m;
+    }
+
+    return { top, middle, bottom, direction};
 })();
 

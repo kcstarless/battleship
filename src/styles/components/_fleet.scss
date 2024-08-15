@@ -6,6 +6,11 @@
     justify-content: space-between;
     gap: var(--space-l);
 
+    background-image: url(../assets/images/battleship.png);
+    background-position: center;
+    background-size: 250px auto;
+    background-repeat: no-repeat;
+
     .p1-fleet, .p2-fleet {
         flex: 1;
         margin-top: var(--space-m);
@@ -41,6 +46,12 @@
         .board-cell.hit {
             background-color: red; /* Color for hit */
         }
+    }
+
+    .battleship-image {
+        background-image: url(../assets/images/battleship.png);
+        background-position: center;
+        background-size: cover;
     }
 
     .p2-fleet {

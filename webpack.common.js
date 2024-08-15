@@ -15,6 +15,14 @@ module.exports = {
                 generator: {
                     filename: 'assets/images/[name][ext][query]',  // Output directory and filename
                 },
+                
+            },
+            {
+                test: /\.(mp3|wav)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/sounds/[name][ext][query]',  // Output directory and filename
+                }, 
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
@@ -26,7 +34,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html',
-            scriptLoading: 'defer'
+            scriptLoading: 'defer',
+            favicon: './src/assets/images/favicon.png', 
         }),
     ],
 

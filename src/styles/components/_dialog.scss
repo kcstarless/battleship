@@ -1,0 +1,84 @@
+dialog {
+    background-image: url(../assets/images/steelhull.jpg);
+    // overflow: hidden;
+
+    position: absolute; 
+    top: 50%; 
+    bottom: 50%;
+    left: 50%;
+    right: 50%; 
+    transform: translate(-50%, -50%); /* Offsets the position by half of its own width and height to center */
+}
+
+
+dialog.start-game {
+    border: none;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+    padding: var(--space-l);
+    background: none;
+    background-color: transparent;
+}
+
+dialog.place-ships {
+    border: none;
+    border-radius: 8px; 
+    background-color: var(--color-secondary);
+    // background-color: transparent;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: var(--space-xxl);
+    gap: var(--space-s);
+
+    h1 {
+        color: var(--color-text-header);
+    }
+    .p1-fleet {
+        color: var(--color-primary);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: var(--space-m);
+
+        border: none;
+        border-color: var(--color-secondary);
+
+        .title {
+            padding-top: var(--space-xs);
+            h3 {
+                color: var(--color-white);
+            }
+        }
+        .ship{
+            display: flex;
+            gap: 1px;
+            cursor: move;
+        }
+        .board-cell {
+            width: 35px; /* Adjust size as needed */
+            height: 35px;
+            background-color: grey; /* Default color for ship */
+        }
+    }
+    .drag-image {
+        display: flex;
+        gap: 1px;
+        /* Ensure the drag image looks like the ship */
+        pointer-events: none; /* Prevent interaction with the drag image */
+    }
+}
+
+/* Styling for the backdrop */
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5); /* Greyed out effect */
+}
+
+dialog.place-ships::backdrop {
+    background: rgba(0, 0, 0, 0.7); /* Different greyed out effect */
+}
+
+

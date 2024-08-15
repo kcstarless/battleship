@@ -2,7 +2,6 @@
 
 import { xAxis, yAxis } from './gameboard';
 import { createGameboard } from "./gameboard";
-import { gameModule } from './gameModule';
 
 export function createPlayer(type) {
     const playerType = type;

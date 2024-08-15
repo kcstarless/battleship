@@ -4,7 +4,7 @@ import './styles/main.scss';
 import { gameModule } from './modules/gameModule';
 
 function init() {
-    gameModule.init();
+    gameModule.startGame();
 }
 
 init();

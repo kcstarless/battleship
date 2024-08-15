@@ -69,3 +69,20 @@
         animation: fadeOutAndShrink 5s forwards;
     }
 }
+
+.placement-info {
+    color: var(--color-light);
+}
+
+.direction {
+ 
+    h3 {
+        color: var(--color-light);
+    }
+}
+
+.changedirection {
+    font-size: var(--font-size-xs);
+    color: var(--color-light);
+    // padding-bottom: (var(--space-m));
+}

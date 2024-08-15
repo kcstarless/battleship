@@ -1,22 +1,26 @@
 // domLoader.js
+/** Setsup dom elements for display */
 
-import { domSelector } from './domHelper';
-import { displayBoard } from './renderBoard';
-import { displayFleet } from './renderFleet';
+import { domOpponentBoard, domPlayerBoard, domPlaceShips } from './domHelper'
+import { displayBoard, } from './renderBoard';
+import { displayFleet, displayPlacement } from './renderFleet';
+
+export function placeShips(player) {
+    const { divFleet, divBoard, board } = domPlaceShips(player); // See domHelper
+
+    displayPlacement(player, divFleet);
+    displayBoard(divBoard, board, player);
+}
 
 export function playerBoard(player){
-    const divPlayerBoard = domSelector('#p1-board');
-    const divFleet = domSelector('#p1-fleet');
-    const board = player.getBoard().getBoardStatus().board;
+    const { divPlayerBoard, board, divFleet } = domPlayerBoard(player); // See domHelper
     
     displayBoard(divPlayerBoard, board, player);
     displayFleet(player, divFleet);
 }
 
 export function opponentBoard(player) {
-    const divOpponentBoard = domSelector('#p2-board');
-    const divFleet = domSelector('#p2-fleet');
-    const board = player.getBoard().getBoardStatus().board;
+    const { divOpponentBoard, board, divFleet } = domOpponentBoard(player); // See domHelper
 
     displayBoard(divOpponentBoard, board, player);
     displayFleet(player, divFleet);
