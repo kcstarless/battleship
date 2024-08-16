@@ -5,9 +5,8 @@ import { domStartGame } from './domHelper'
 import { feedback } from "./feedbackHelper.js";
 import { createPlayer } from '../modules/player';
 import { clearBoard } from './renderBoard.js'
-import missileRight from '../assets/images/missile_right.png';
-import missileLeft from '../assets/images/missile_left.png';
 import battleship from '../assets/images/battleship.png';
+import authorIcon from '../assets/images/icon_author.png';
 import { delay } from 'lodash';
 
 
