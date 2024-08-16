@@ -4,6 +4,7 @@
     display: flex;
     justify-content: space-between;
     padding-top: var(--space-l);
+    gap: var(--space-l);
 }
 
 .board-cell {
@@ -15,6 +16,7 @@
     align-items: center;
     justify-content: center;
     background-color: var(--color-background);
+    cursor: pointer;
     // box-shadow: var(--shadow-large);
 }
 
@@ -50,7 +52,7 @@
     gap: 1px; // Space between cells (optional)
 
     .board-cell.water {
-        background-color: var(--color-background);
+        background-color: var(--color-secondary-rotate);
         // background-color: rgb(23, 103, 223); // Different color for 'water'
     }
     

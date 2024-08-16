@@ -5,13 +5,21 @@ import { createGameboard } from "./gameboard";
 
 export function createPlayer(type) {
     const playerType = type;
-    const isAttacking = false;
+    let isAttacking = false;
     let board = createGameboard(type);
     let possibleShots = fillPossibleShots();
     
-
+    function getPlayerType() {
+        return playerType;
+    }
     function getBoard(){
         return board;
+    }
+    function getIsAttacking() {
+        return isAttacking;
+    }
+    function setIsAttacking(value) {
+        isAttacking = value;
     }
 
     /*** Computer Attack Logics ***/
@@ -40,5 +48,5 @@ export function createPlayer(type) {
         return shot;
     }
 
-    return { playerType, isAttacking, getBoard, computerAttack };
+    return { getPlayerType, getIsAttacking, setIsAttacking, getBoard, computerAttack };
 }

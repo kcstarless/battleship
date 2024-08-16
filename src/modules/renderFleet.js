@@ -37,8 +37,6 @@ export async function displayPlacement(player, divFleet) {
             window.addEventListener('shipPlaced', resolve, { once: true });
         });
     }
-
-
 }
 
 //Render fleet for main game
@@ -66,7 +64,7 @@ function createShipsCells(ship, player) {
     for (let i = 0; i < shipLength; i++) {
         const cell = domCreator('div', 'board-cell');
         cell.classList.add('ship'); // Ensure it matches the ship class used on the board
-        if (shipHits > 0 && player.playerType !== 'computer' ) { // if ships has hits add hit class
+        if (shipHits > 0 && player.getPlayerType() !== 'computer' ) { // if ships has hits add hit class
             cell.classList.add('hit');
             shipHits = Math.max(0, shipHits - 1); // ensure shipHits doesn't go below 0
         }

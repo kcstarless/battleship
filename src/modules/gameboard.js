@@ -100,7 +100,6 @@ export function createGameboard() {
         } else {
             for(let i = 0; i < len; i++) {
                 board[y][x + i] = ship;
-                console.log('placed');
             }
         }
         // playerFleet.push(ship); // keep record of players ships
@@ -127,7 +126,7 @@ export function createGameboard() {
         } else {
             hasHit = false;
             shots.set(`${y},${x}`, miss); // if miss keep record
-            feedback.middle(`MISSED!`);
+            feedback.middle(`MISS!`);
             playSound(missed);
         }
         return true;
@@ -141,7 +140,7 @@ export function createGameboard() {
     function checkShip(cell){
         const ship = cell.getStatus();
         if (ship.sunk) {
-            feedback.bottom(`${ship.name} sunk!`);
+            feedback.middle(`${ship.name.toUpperCase()} SUNK!`, true);
         }
     }
 

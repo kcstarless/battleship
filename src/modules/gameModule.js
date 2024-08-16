@@ -20,9 +20,8 @@ export const gameModule = (function () {
     let isInitialized = false;
     let quickplay;
 
-    function startGame() {
-            const { modal, container, quickBtn, placeBtn } = domStartGame(); // See domHelper
-  
+    function startGame(gameover = null) {
+            const { modal, container, quickBtn, placeBtn } = domStartGame(gameover); // See domHelper
             // Quick play
             quickBtn.addEventListener('click', () => {
                 quickplay = true;
@@ -64,28 +63,28 @@ export const gameModule = (function () {
     }
 
     function round() {
-        // Decide current player
+        // Decide who is attacking
         attacker = players[currentPlayerIndex]
         defender = players[getNextPlayerIndex()];
         // when attacker is type of human
-        if (attacker.playerType === 'human') {
-            feedback.top(`Your Command`, missileRight);
+        if (attacker.getPlayerType() === 'human') {
+            feedback.top(`Your Attack!`);
             playerBoard(attacker);
             opponentBoard(defender);  
         } 
         // when attacker is type of computer
-        if (attacker.playerType === 'computer') { 
-            feedback.top(`Enemy attacking..`, missileRight);
-            attacker.isAttacking = true;
+        if (attacker.getPlayerType() === 'computer') { 
+            feedback.top(`Incoming Attack!`);
+            attacker.setIsAttacking(true);
             opponentBoard(attacker); // Make opponent board unclickable during computers attack
 
             // Give delay before computer attacks. 
             setTimeout(() => {
                 attacker.computerAttack(defender);
                 playerBoard(defender);
-                attacker.isAttacking = false;
+                attacker.setIsAttacking(false);
                 gameOver();
-            }, 1500);  
+            }, 3000);  
         }
     };
 
@@ -115,19 +114,22 @@ export const gameModule = (function () {
         isInitialized = false;
         quickplay = true;
         currentPlayerIndex = 0;
+        feedback.top('');
+        feedback.middle('');
+        feedback.bottom('');
         clearBoard();
     }
 
     function gameOver() {
         if (defender.getBoard().checkFleet()) {
+            let winner;
+            if (attacker.getPlayerType() === 'human') {
+                winner = 'Player'
+            }
             isGameOver = true;
-            feedback.middle(`Gameover: ${attacker.playerType} WINS!`);
-
-            setTimeout(() => {
-                gameReset();
-                startGame();
-            }, 5000);
-            
+            opponentBoard(defender); // Make opponentBoard unclickable
+            gameReset();
+            startGame(`Game Over ${winner} WINS!`);
         } else if (checkLastShot()) {   
             feedback.bottom("Fire again!");
             round(); // If hit play another round without switching player.

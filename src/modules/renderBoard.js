@@ -22,14 +22,13 @@ export function displayBoard(divBoard, board, player) {
 // Return each cell to display board
 function createCell(player, coord, cellType) { 
     const { cell } = domCreateCell(player, coord, cellType); // See domHelper
-    
     const img = hitOrMiss(player, coord);
     cell.append(img);
     
     !gameModule.getIsInitialized() && dragndropEvent(player, coord, cell); // drag and drop events for initial placement of ships only
 
     // Adds event on opponents board if player is computer, is attacking and game not over.
-    if (player.playerType === 'computer' && !player.isAttacking && !gameModule.getIsGameOver()) {
+    if (player.getPlayerType() === 'computer' && !player.getIsAttacking() && !gameModule.getIsGameOver()) {
         cell.addEventListener('click', () => handleCellAttack(player, coord));   
     }
     return cell;

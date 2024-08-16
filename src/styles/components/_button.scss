@@ -4,6 +4,7 @@
     cursor: pointer;
     
     &.quickplay, &.placeships, &.start {
+        border: var(--border-dark);
         border-radius: 8px; 
         background-color: var(--color-primary);
         width: 300px;
@@ -16,7 +17,6 @@
     }
     &.start {
         margin-top: var(--space-s);
-
     }
     &.not-ready {
         display: none;

@@ -16,13 +16,20 @@ dialog.start-game {
     box-shadow: none;
     display: flex;
     flex-direction: column;
+    text-align: center;
     gap: var(--space-m);
     padding: var(--space-l);
     background: none;
     background-color: transparent;
+
+    h1 {
+        color: #f3ebcf;
+        text-shadow: var(--shadow-light);
+    }
 }
 
 dialog.place-ships {
+    text-shadow: var(--shadow-large);
     border: none;
     border-radius: 8px; 
     background-color: var(--color-secondary);

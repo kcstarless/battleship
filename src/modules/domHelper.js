@@ -10,7 +10,7 @@ export function domCreator(name, nameClass = null, nameID = null, text = null){
     const nameElement = document.createElement(name);
     if (nameClass) nameElement.className = nameClass;
     if (nameID) nameElement.id = nameID;
-    if(text) nameElement.textContent = text;
+    if(text) nameElement.innerHTML = text;
     return nameElement;
 }
 
@@ -68,16 +68,17 @@ export function domPlaceShips(player) {
     return { container, modal, divFleet, divBoard, divHeader, board, placementInfo, divDirection };
 }
 
-export function domStartGame() {
+export function domStartGame(text) {
     const container = domSelector('.container');
     const modal = domCreator('dialog', 'start-game');
-    const quickBtn = domCreator('button', 'btn quickplay');
-    const placeBtn = domCreator('button', 'btn placeships');
-    quickBtn.innerHTML = '<h1>Quick Play</h1>';
-    placeBtn.innerHTML = '<h1>Place ships</h1>';
-    modal.append(quickBtn, placeBtn);
+    const quickBtn = domCreator('button', 'btn quickplay', null, `<h1>Quick Play</h1>`);
+    const placeBtn = domCreator('button', 'btn placeships', null, `<h1>Place ships</h1>`);
+    const gameoverInfo = domCreator('h1', 'gameover-info', null, text); // If game is over display gameover message
+
+    modal.append(gameoverInfo, quickBtn, placeBtn);
     container.append(modal);
     modal.showModal();
+
 
     return { modal, container, quickBtn, placeBtn };
 }

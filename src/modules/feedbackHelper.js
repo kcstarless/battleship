@@ -6,8 +6,10 @@ export const feedback = (function() {
 
     function top(m, imageURL = null){
         const feedback = domSelector('.top');
-        feedback.innerHTML = '';
-        // feedback.textContent = m;
+        feedback.innerHTML = `<h1>${m}</h1>`;
+        // feedback.classList.remove('fade-out');
+        // setTimeout(() => feedback.classList.add('fade-out'), 10); 
+
         if (imageURL) {
             const img = domCreator('img');
             img.src = imageURL;
@@ -16,16 +18,17 @@ export const feedback = (function() {
             feedback.appendChild(img);
         }
 
-        const text = domCreator('div');
-        text.className = 'feedback-text';
-        text.innerHTML = m;
-        feedback.appendChild(text);
+        // const text = domCreator('div');
+        // text.className = 'feedback-text';
+        // text.innerHTML = m;
+        // feedback.appendChild(text);
     }
 
-    function middle(m){
+    function middle(m, sunk = null){
         const feedback = domSelector('.middle');
+        feedback.classList.remove('sunk');
+        if(sunk) feedback.classList.add('sunk');
         feedback.textContent = m;
-        
         // Reset the animation by removing the class
         feedback.classList.remove('fade-out');
         setTimeout(() => feedback.classList.add('fade-out'), 10); 
@@ -33,9 +36,10 @@ export const feedback = (function() {
     
     function bottom(m){
         const feedback = domSelector('.bottom');
-        feedback.textContent = m;
+        feedback.innerHTML = `<h3>${m}</h3>`;
         feedback.classList.remove('fade-out');
-        setTimeout(() => feedback.classList.add('fade-out'), 10); 
+        setTimeout(() => feedback.classList.add('fade-out'), 10);
+        // feedback.textContent = '';
     }
 
     function direction(m) {
