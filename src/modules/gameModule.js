@@ -84,7 +84,7 @@ export const gameModule = (function () {
                 playerBoard(defender);
                 attacker.setIsAttacking(false);
                 gameOver();
-            }, 3000);  
+            }, 2000);  
         }
     };
 
