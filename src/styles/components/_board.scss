@@ -50,7 +50,7 @@
     gap: 1px; // Space between cells (optional)
 
     .board-cell.water {
-        background-color: var(--color-secondary-rotate);
+        background-color: var(--color-background);
         // background-color: rgb(23, 103, 223); // Different color for 'water'
     }
     
